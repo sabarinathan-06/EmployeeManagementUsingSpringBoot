@@ -1,6 +1,5 @@
 package com.ideas2it.employeeManagement.employee.employeeDTO;
 
-import com.ideas2it.employeeManagement.model.Department;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -24,7 +23,6 @@ import java.time.LocalDate;
 @Setter
 public class EmployeeDTO {
 
-
     private Long employeeId;
     private String employeeName;
     private String place;
@@ -32,5 +30,6 @@ public class EmployeeDTO {
     private int experience;
     private double salary;
     private String departmentName;
+    private String projectName;
 
 }

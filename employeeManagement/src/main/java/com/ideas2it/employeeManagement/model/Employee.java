@@ -1,5 +1,6 @@
 package com.ideas2it.employeeManagement.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Entity class representing a Employee in the organization.
+ *
  * <p>
  * This class is an Employee entity that is mapped to the "employee" table in the database.
  * This class holds the data related to an employee including their ID, name, place, dateOfBirth,
@@ -51,6 +54,7 @@ public class Employee {
     @Column(name = "is_deleted")
     private boolean isDeleted = false;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;

@@ -5,6 +5,15 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Entity class representing a project in the organization.
+ *
+ * <p>
+ * Maps to the "projects" table in the database and contains details about
+ * each project, including its ID, name, and deletion status. A project can
+ * be associated with multiple employees.
+ * </p>
+ */
 @Entity
 @Table(name = "projects")
 @Getter
