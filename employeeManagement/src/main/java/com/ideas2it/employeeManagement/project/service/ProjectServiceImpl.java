@@ -1,6 +1,7 @@
 package com.ideas2it.employeeManagement.project.service;
 
 import com.ideas2it.employeeManagement.mapper.ProjectMapper;
+import com.ideas2it.employeeManagement.model.Employee;
 import com.ideas2it.employeeManagement.model.Project;
 import com.ideas2it.employeeManagement.project.projectDTO.ProjectDTO;
 import com.ideas2it.employeeManagement.project.respository.ProjectRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Implementation of the {@link ProjectService} interface.
@@ -58,7 +60,7 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectRepository.findByProjectIdAndIsDeletedFalse(id)
                 .orElseThrow(() -> {
                     logger.error("Project not found for ID: {}", id);
-                    return new RuntimeException("Project not found");
+                    return new NoSuchElementException("Project not found with Id: " + id);
                 });
         return ProjectMapper.convertToDTO(project);
     }
@@ -83,14 +85,13 @@ public class ProjectServiceImpl implements ProjectService {
     /**
      * Updates an existing project.
      *
-     * @param id The unique ID of the project to update.
      * @param projectDTO {@link ProjectDTO} The updated project data.
      * @return The updated project DTO.
      */
     @Override
-    public ProjectDTO updateProject(Long id, ProjectDTO projectDTO) {
-        logger.debug("Request to update project with ID: {}", id);
-        Project project = ProjectMapper.convertToEntity(getProjectById(id));
+    public ProjectDTO updateProject(ProjectDTO projectDTO) {
+        logger.debug("Request to update project with ID: {}", projectDTO.getProjectId());
+        Project project = ProjectMapper.convertToEntity(getProjectById(projectDTO.getProjectId()));
         project.setProjectName(projectDTO.getProjectName());
         Project updatedProject = projectRepository.save(project);
         ProjectDTO result = ProjectMapper.convertToDTO(updatedProject);
@@ -104,11 +105,17 @@ public class ProjectServiceImpl implements ProjectService {
      * @param id The unique ID of the project to delete.
      */
     @Override
-    public void deleteProject(Long id) {
+    public boolean deleteProject(Long id) {
         logger.debug("Request to delete project with ID: {}", id);
-        Project project = ProjectMapper.convertToEntity(getProjectById(id));
+        Project project = projectRepository.findByProjectIdAndIsDeletedFalse(id)
+                .orElseThrow(() -> new NoSuchElementException("Employee not found for ID: " + id));
+        if (project == null) {
+            logger.info("While deleting there is no Such department id : {}", id);
+        }
+        assert project != null;
         project.setDeleted(true);
         projectRepository.save(project);
         logger.info("Project with ID: {} marked as deleted", id);
+        return true;
     }
 }

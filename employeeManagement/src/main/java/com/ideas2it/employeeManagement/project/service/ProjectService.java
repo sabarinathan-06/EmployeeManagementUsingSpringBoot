@@ -42,16 +42,15 @@ public interface ProjectService {
     /**
      * Updates an existing project.
      *
-     * @param id The unique ID of the project to update.
      * @param projectDTO {@link ProjectDTO} The updated project data.
      * @return The updated project DTO.
      */
-    ProjectDTO updateProject(Long id, ProjectDTO projectDTO);
+    ProjectDTO updateProject(ProjectDTO projectDTO);
 
     /**
      * Deletes a project by its unique ID.
      *
      * @param id The unique ID of the project to delete.
      */
-    void deleteProject(Long id);
+    boolean deleteProject(Long id);
 }

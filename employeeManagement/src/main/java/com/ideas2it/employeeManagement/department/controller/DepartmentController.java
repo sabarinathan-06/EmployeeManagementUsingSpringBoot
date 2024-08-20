@@ -3,6 +3,7 @@ package com.ideas2it.employeeManagement.department.controller;
 import com.ideas2it.employeeManagement.department.departmentDTO.DepartmentDTO;
 import com.ideas2it.employeeManagement.department.service.DepartmentService;
 import com.ideas2it.employeeManagement.employee.employeeDTO.EmployeeDTO;
+import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class DepartmentController {
      * @return The created department DTO with HTTP status 201 CREATED.
      */
     @PostMapping
-    public ResponseEntity<DepartmentDTO> createDepartment(@RequestBody DepartmentDTO departmentDTO) {
+    public ResponseEntity<DepartmentDTO> createDepartment(@Valid @RequestBody DepartmentDTO departmentDTO) {
         logger.debug("Request to create department with name: {}", departmentDTO.getDepartmentName());
         DepartmentDTO createdDepartmentDto = departmentService.createDepartment(departmentDTO);
         logger.info("Department created with ID: {}", createdDepartmentDto.getDepartmentId());
@@ -105,14 +106,14 @@ public class DepartmentController {
      * to the service layer, and returns the updated department DTO with HTTP status 200 OK.
      * </p>
      *
-     * @param id the unique department ID
+     * @param id            the unique department ID
      * @param departmentDTO {@link DepartmentDTO} The DTO containing updated department data.
      * @return the updated department DTO with HTTP status 200 OK.
      */
     @PutMapping("/{id}")
     public ResponseEntity<DepartmentDTO> updateDepartment(@PathVariable Long id, @RequestBody DepartmentDTO departmentDTO) {
         logger.debug("Request to update department with ID: {}", id);
-        DepartmentDTO updatedDepartmentDto = departmentService.updateDepartment(id, departmentDTO);
+        DepartmentDTO updatedDepartmentDto = departmentService.updateDepartment(departmentDTO);
         logger.info("Department updated with ID: {}", id);
         return new ResponseEntity<>(updatedDepartmentDto, HttpStatus.OK);
     }
@@ -128,11 +129,11 @@ public class DepartmentController {
      * @param id the unique department ID
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDepartment(@PathVariable Long id) {
+    public ResponseEntity<Boolean> deleteDepartment(@PathVariable Long id) {
         logger.debug("Request to delete department with ID: {}", id);
-        departmentService.deleteDepartment(id);
+        boolean deleteDepartment = departmentService.deleteDepartment(id);
         logger.info("Department marked as deleted with ID: {}", id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(deleteDepartment, HttpStatus.NO_CONTENT);
     }
 
     /**

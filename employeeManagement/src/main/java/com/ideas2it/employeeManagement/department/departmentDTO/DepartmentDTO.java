@@ -1,5 +1,7 @@
 package com.ideas2it.employeeManagement.department.departmentDTO;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 /**
@@ -21,6 +23,8 @@ public class DepartmentDTO {
 
     private Long departmentId;
 
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z]+([ ][a-zA-Z]+)*$", message = "Enter the valid department name.")
     private String departmentName;
 
 }

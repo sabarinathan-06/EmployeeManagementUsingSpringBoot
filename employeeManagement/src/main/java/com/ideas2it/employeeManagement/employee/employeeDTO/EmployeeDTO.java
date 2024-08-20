@@ -1,5 +1,7 @@
 package com.ideas2it.employeeManagement.employee.employeeDTO;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -24,9 +26,19 @@ import java.time.LocalDate;
 public class EmployeeDTO {
 
     private Long employeeId;
+
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z]+([ ][a-zA-Z]+)*$", message = "Enter the valid Employee name.")
     private String employeeName;
+
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z]+([ ][a-zA-Z]+)*$", message = "Enter the valid place name.")
     private String place;
+
+    @NotBlank
     private LocalDate dateOfBirth;
+
+    @NotBlank
     private int experience;
     private double salary;
     private String departmentName;

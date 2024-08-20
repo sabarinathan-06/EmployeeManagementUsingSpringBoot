@@ -78,7 +78,7 @@ public class ProjectController {
     @PutMapping("/{id}")
     public ResponseEntity<ProjectDTO> updateProject(@PathVariable Long id, @RequestBody ProjectDTO projectDTO) {
         logger.debug("Request to update project with ID: {}", id);
-        ProjectDTO updatedProjectDTO = projectService.updateProject(id, projectDTO);
+        ProjectDTO updatedProjectDTO = projectService.updateProject(projectDTO);
         return new ResponseEntity<>(updatedProjectDTO, HttpStatus.OK);
     }
 
@@ -88,9 +88,9 @@ public class ProjectController {
      * @param id the unique project ID
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+    public ResponseEntity<Boolean> deleteProject(@PathVariable Long id) {
         logger.debug("Request to delete project with ID: {}", id);
-        projectService.deleteProject(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        boolean result = projectService.deleteProject(id);
+        return new ResponseEntity<>(result, HttpStatus.NO_CONTENT);
     }
 }

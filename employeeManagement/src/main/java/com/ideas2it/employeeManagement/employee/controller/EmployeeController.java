@@ -97,7 +97,7 @@ public class EmployeeController {
     @PutMapping("/{id}")
     public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) {
         logger.debug("Request to update employee with ID: {} with data: {}", id, employeeDTO);
-        EmployeeDTO updatedEmployeeDto = employeeService.updateEmployee(id, employeeDTO);
+        EmployeeDTO updatedEmployeeDto = employeeService.updateEmployee(employeeDTO);
         logger.info("Updated employee with ID: {}", id);
         return new ResponseEntity<>(updatedEmployeeDto, HttpStatus.ACCEPTED);
     }
@@ -109,7 +109,7 @@ public class EmployeeController {
      * @return HTTP status 204 NO CONTENT.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity<Boolean> deleteEmployee(@PathVariable Long id) {
         logger.debug("Request to delete employee with ID: {}", id);
         employeeService.deleteEmployee(id);
         logger.info("Deleted employee with ID: {}", id);
@@ -128,9 +128,14 @@ public class EmployeeController {
         logger.debug("Request to assign employee with ID: {} to department with ID: {}", employeeId, departmentId);
         EmployeeDTO employeeDTO = employeeService.getEmployeeById(employeeId);
         DepartmentDTO departmentDTO = departmentService.getDepartmentById(departmentId);
-        EmployeeDTO updatedEmployeeDto = employeeService.assignEmployeeToDepartment(employeeDTO, departmentDTO);
-        logger.info("Assigned employee with ID: {} to department with ID: {}", employeeId, departmentId);
-        return new ResponseEntity<>(updatedEmployeeDto, HttpStatus.OK);
+        if (employeeDTO != null && departmentDTO != null) {
+            EmployeeDTO updatedEmployeeDto = employeeService.assignEmployeeToDepartment(employeeDTO, departmentDTO);
+            logger.info("Assigned employee with ID: {} to department with ID: {}", employeeId, departmentId);
+            return new ResponseEntity<>(updatedEmployeeDto, HttpStatus.OK);
+        } else {
+            logger.warn("Employee with ID: {} or department with ID: {} not found", employeeId, departmentId);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     /**

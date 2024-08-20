@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > EmployeeService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.ideas2it.employeeManagement.employee.service</a>
+</div>
+
+<h1>Coverage Summary for Class: EmployeeService (com.ideas2it.employeeManagement.employee.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">EmployeeService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.ideas2it.employeeManagement.employee.service;
+&nbsp;
+&nbsp;import com.ideas2it.employeeManagement.department.departmentDTO.DepartmentDTO;
+&nbsp;import com.ideas2it.employeeManagement.employee.employeeDTO.EmployeeDTO;
+&nbsp;import com.ideas2it.employeeManagement.project.projectDTO.ProjectDTO;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * &lt;p&gt;
+&nbsp; * Interface for EmployeeService, defining the business operations related to Employees.
+&nbsp; * This interface is implemented by EmployeeServiceImpl and defines the contract for
+&nbsp; * managing Employee entities.
+&nbsp; * &lt;/p&gt;
+&nbsp; */
+&nbsp;@Service
+&nbsp;public interface EmployeeService {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new employee.
+&nbsp;     *
+&nbsp;     * @param employeeDTO {@link EmployeeDTO} The DTO containing employee data.
+&nbsp;     * @return The created employee DTO.
+&nbsp;     */
+&nbsp;    EmployeeDTO createEmployee(EmployeeDTO employeeDTO);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves an employee by ID.
+&nbsp;     *
+&nbsp;     * @param id {@link Long} The ID of the employee.
+&nbsp;     * @return The employee DTO.
+&nbsp;     * @throws RuntimeException if the employee is not found.
+&nbsp;     */
+&nbsp;    EmployeeDTO getEmployeeById(Long id);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves all employees.
+&nbsp;     *
+&nbsp;     * @return A list of employee DTOs.
+&nbsp;     */
+&nbsp;    List&lt;EmployeeDTO&gt; getAllEmployees();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Updates an existing employee.
+&nbsp;     *
+&nbsp;     * @param employeeDTO {@link EmployeeDTO} The DTO containing updated employee data.
+&nbsp;     * @return The updated employee DTO.
+&nbsp;     * @throws RuntimeException if the employee is not found.
+&nbsp;     */
+&nbsp;    EmployeeDTO updateEmployee(EmployeeDTO employeeDTO);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Deletes an employee by ID (soft deletion).
+&nbsp;     *
+&nbsp;     * @param id {@link Long} The ID of the employee to delete.
+&nbsp;     * @throws RuntimeException if the employee is not found.
+&nbsp;     */
+&nbsp;    boolean deleteEmployee(Long id);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Assigns an employee to a project.
+&nbsp;     *
+&nbsp;     * @param employeeDTO {@link EmployeeDTO} The employee DTO.
+&nbsp;     * @param projectDTO {@link ProjectDTO} The project DTO.
+&nbsp;     * @return The updated employee DTO.
+&nbsp;     */
+&nbsp;    EmployeeDTO assignEmployeeToProject(EmployeeDTO employeeDTO, ProjectDTO projectDTO);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Assigns an employee to a department.
+&nbsp;     *
+&nbsp;     * @param employeeDTO {@link EmployeeDTO} The employee DTO.
+&nbsp;     * @param departmentDTO {@link DepartmentDTO} The department DTO.
+&nbsp;     * @return The updated employee DTO.
+&nbsp;     */
+&nbsp;    EmployeeDTO assignEmployeeToDepartment(EmployeeDTO employeeDTO, DepartmentDTO departmentDTO);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-08-20 11:10</div>
+</div>
+</body>
+</html>

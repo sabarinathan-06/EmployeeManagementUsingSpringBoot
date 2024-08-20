@@ -1,0 +1,136 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > DepartmentService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.ideas2it.employeeManagement.department.service</a>
+</div>
+
+<h1>Coverage Summary for Class: DepartmentService (com.ideas2it.employeeManagement.department.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">DepartmentService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.ideas2it.employeeManagement.department.service;
+&nbsp;
+&nbsp;import com.ideas2it.employeeManagement.department.departmentDTO.DepartmentDTO;
+&nbsp;import com.ideas2it.employeeManagement.employee.employeeDTO.EmployeeDTO;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Service interface for handling business logic related to Department operations.
+&nbsp; *
+&nbsp; * &lt;p&gt;
+&nbsp; * This interface defines the contract for department-related operations, including
+&nbsp; * creating, retrieving, updating, and deleting departments. It also provides a method
+&nbsp; * for retrieving employees associated with a department. Implementations of this
+&nbsp; * interface should provide the necessary business logic and interact with the data
+&nbsp; * access layer.
+&nbsp; * &lt;/p&gt;
+&nbsp; */
+&nbsp;public interface DepartmentService {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new department.
+&nbsp;     *
+&nbsp;     * @param departmentDTO {@link DepartmentDTO} The DTO containing department data.
+&nbsp;     * @return The created department DTO with HTTP status 201 CREATED.
+&nbsp;     */
+&nbsp;    DepartmentDTO createDepartment(DepartmentDTO departmentDTO);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves a department by its unique ID.
+&nbsp;     *
+&nbsp;     * @param id The unique identifier of the department.
+&nbsp;     * @return The department DTO if found with HTTP status 200 OK.
+&nbsp;     */
+&nbsp;    DepartmentDTO getDepartmentById(Long id);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves all departments.
+&nbsp;     *
+&nbsp;     * @return A list of all department DTOs.
+&nbsp;     */
+&nbsp;    List&lt;DepartmentDTO&gt; getAllDepartments();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Updates an existing department&#39;s details by its unique ID.
+&nbsp;     *
+&nbsp;     * @param id The unique identifier of the department to be updated.
+&nbsp;     * @param departmentDTO {@link DepartmentDTO} The DTO containing updated department data.
+&nbsp;     * @return The updated department DTO with HTTP status 200 OK.
+&nbsp;     */
+&nbsp;    DepartmentDTO updateDepartment(DepartmentDTO departmentDTO);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Deletes a department by its unique ID. This method performs a soft delete,
+&nbsp;     * marking the department as deleted rather than physically removing it from the database.
+&nbsp;     *
+&nbsp;     * @param id The unique identifier of the department to be deleted.
+&nbsp;     */
+&nbsp;    boolean deleteDepartment(Long id);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves all employees associated with a specific department.
+&nbsp;     *
+&nbsp;     * @param id The unique identifier of the department.
+&nbsp;     * @return A list of employee DTOs associated with the department.
+&nbsp;     */
+&nbsp;    List&lt;EmployeeDTO&gt; getEmployeesByDepartment(Long id);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-08-20 11:10</div>
+</div>
+</body>
+</html>

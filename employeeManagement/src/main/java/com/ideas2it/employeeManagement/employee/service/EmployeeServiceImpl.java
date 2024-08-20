@@ -1,5 +1,15 @@
 package com.ideas2it.employeeManagement.employee.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.ideas2it.employeeManagement.department.departmentDTO.DepartmentDTO;
 import com.ideas2it.employeeManagement.employee.employeeDTO.EmployeeDTO;
 import com.ideas2it.employeeManagement.employee.respository.EmployeeRepository;
@@ -10,14 +20,6 @@ import com.ideas2it.employeeManagement.model.Department;
 import com.ideas2it.employeeManagement.model.Employee;
 import com.ideas2it.employeeManagement.model.Project;
 import com.ideas2it.employeeManagement.project.projectDTO.ProjectDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * <p>
@@ -50,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDTO getEmployeeById(Long id) {
         logger.debug("Retrieving employee with ID: {}", id);
         Optional<Employee> employeeOptional = employeeRepository.findByEmployeeIdAndIsDeletedFalse(id);
-        Employee employee = employeeOptional.orElseThrow(() -> new RuntimeException("Employee not found for ID: " + id));
+        Employee employee = employeeOptional.orElseThrow(() -> new NoSuchElementException("Employee not found for ID: " + id));
         EmployeeDTO employeeDTO = EmployeeMapper.convertToDTO(employee);
         logger.info("Employee retrieved with ID: {}", id);
         return employeeDTO;
@@ -69,10 +71,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO updateEmployee(Long id, EmployeeDTO employeeDTO) {
-        logger.debug("Updating employee with ID: {}", id);
-        Employee existingEmployee = employeeRepository.findByEmployeeIdAndIsDeletedFalse(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found for ID: " + id));
+    public EmployeeDTO updateEmployee(EmployeeDTO employeeDTO) {
+        logger.debug("Updating employee with ID: {}", employeeDTO.getEmployeeId());
+        Employee existingEmployee = employeeRepository.findByEmployeeIdAndIsDeletedFalse(employeeDTO.getEmployeeId())
+                .orElseThrow(() -> new NoSuchElementException("Employee not found for ID: " + employeeDTO.getEmployeeId()));
         Employee updatedEmployee = EmployeeMapper.convertToEntity(employeeDTO);
         existingEmployee.setEmployeeName(updatedEmployee.getEmployeeName());
         existingEmployee.setPlace(updatedEmployee.getPlace());
@@ -81,17 +83,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         existingEmployee.setExperience(updatedEmployee.getExperience());
         Employee savedEmployee = employeeRepository.save(existingEmployee);
         EmployeeDTO updatedEmployeeDTO = EmployeeMapper.convertToDTO(savedEmployee);
-        logger.info("Employee updated with ID: {}", id);
+        logger.info("Employee updated with ID: {}", employeeDTO.getEmployeeId());
         return updatedEmployeeDTO;
     }
 
     @Override
-    public void deleteEmployee(Long id) {
+    public boolean deleteEmployee(Long id) {
         logger.debug("Deleting employee with ID: {}", id);
-        Employee employee = EmployeeMapper.convertToEntity(getEmployeeById(id));
+        Employee employee = employeeRepository.findByEmployeeIdAndIsDeletedFalse(id)
+                .orElseThrow(() -> new NoSuchElementException("Employee not found for ID: " + id));
+        if (employee == null) {
+            logger.info("While deleting there is no Such Employee id : {}", id);
+        }
+        assert employee != null;
         employee.setDeleted(true);
         employeeRepository.save(employee);
         logger.info("Employee marked as deleted with ID: {}", id);
+        return true;
     }
 
     @Override

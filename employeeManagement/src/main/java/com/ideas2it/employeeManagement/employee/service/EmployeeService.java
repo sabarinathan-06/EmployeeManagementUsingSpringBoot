@@ -44,12 +44,11 @@ public interface EmployeeService {
     /**
      * Updates an existing employee.
      *
-     * @param id          {@link Long} The ID of the employee to update.
      * @param employeeDTO {@link EmployeeDTO} The DTO containing updated employee data.
      * @return The updated employee DTO.
      * @throws RuntimeException if the employee is not found.
      */
-    EmployeeDTO updateEmployee(Long id, EmployeeDTO employeeDTO);
+    EmployeeDTO updateEmployee(EmployeeDTO employeeDTO);
 
     /**
      * Deletes an employee by ID (soft deletion).
@@ -57,7 +56,7 @@ public interface EmployeeService {
      * @param id {@link Long} The ID of the employee to delete.
      * @throws RuntimeException if the employee is not found.
      */
-    void deleteEmployee(Long id);
+    boolean deleteEmployee(Long id);
 
     /**
      * Assigns an employee to a project.

@@ -41,11 +41,13 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
     Optional<Department> findByDepartmentIdAndIsDeletedFalse(Long departmentId);
 
     /**
-     * Retrieves all employees associated with a specific department if they are not marked as deleted.
+     * This method used to check if the department name is already exist or not.
      *
-     * @param id The unique identifier of the department.
-     * @return A list of {@link Employee} entities associated with the department that are not marked as deleted.
+     * @param name The name of the department.
+     * @return a boolean value true if department name already exist and false if department name does not exist.
      */
-    //@Query(getDepartmentWithEmployees)@Param("id")
-    //List<Employee> getDepartmentWithEmployees(Long id);
+    boolean existsByName(String name);
+
+    boolean existsById(Long id);
+
 }

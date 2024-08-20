@@ -48,7 +48,7 @@ public interface DepartmentService {
      * @param departmentDTO {@link DepartmentDTO} The DTO containing updated department data.
      * @return The updated department DTO with HTTP status 200 OK.
      */
-    DepartmentDTO updateDepartment(Long id, DepartmentDTO departmentDTO);
+    DepartmentDTO updateDepartment(DepartmentDTO departmentDTO);
 
     /**
      * Deletes a department by its unique ID. This method performs a soft delete,
@@ -56,7 +56,7 @@ public interface DepartmentService {
      *
      * @param id The unique identifier of the department to be deleted.
      */
-    void deleteDepartment(Long id);
+    boolean deleteDepartment(Long id);
 
     /**
      * Retrieves all employees associated with a specific department.
